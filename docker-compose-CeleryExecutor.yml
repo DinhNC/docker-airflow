@@ -80,6 +80,8 @@ services:
             - scheduler
         volumes:
             - ./dags:/usr/local/airflow/dags
+            - ./in_files:/usr/local/airflow/in_files
+            - ./out_files:/usr/local/airflow/out_files
             # Uncomment to include custom plugins
             # - ./plugins:/usr/local/airflow/plugins
         environment:
