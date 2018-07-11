@@ -33,8 +33,7 @@ tid_prefix_check = 'check_'
 tid_prefix_spark = 'spark_submit_'
 tid_prefix_distcp = 'distcp_'
 tid_prefix_subdag = 'subdag_'
-db_names = ['zomato_ads', 'diy_db', 'zomato4', 'zbilling', 'ztransactions',
-            'chat', 'o2_internal', 'zpush']
+db_names = ['db_1', 'db_2', 'db_3']
 
 
 # helper methods
