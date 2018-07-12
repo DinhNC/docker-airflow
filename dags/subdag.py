@@ -49,13 +49,20 @@ def mimic_task(task_name, success_percent=100, sleep_duration=0):
 
 # callable methods
 def check_sync_enabled(db_name, **kwargs):
-    return mimic_task('check_sync_enabled for %s' % db_name, 100, 1)
+    if mimic_task('check_sync_enabled for %s' % db_name, 70, 2) == False:
+        raise Exception('Exception in check_sync_enabled for %s' % db_name)
+    else:
+        return True
 
 def spark_submit(db_name, **kwargs):
-    return mimic_task('spark_submit for %s' % db_name, 70, 5)
+    if mimic_task('spark_submit for %s' % db_name, 60, 2) == False:
+        raise Exception('Exception in spark_submit for %s' % db_name)
+    else:
+        return True
 
 def distcp(db_name, **kwargs):
-    mimic_task('distcp for %s' % db_name, 60, 2)
+    if mimic_task('distcp for %s' % db_name, 50, 2) == False:
+        raise Exception('Exception in dictcp for %s' % db_name)
 
 
 # subdag
