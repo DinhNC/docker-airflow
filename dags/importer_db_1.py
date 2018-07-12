@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 import time
 import random
 
+
 # args
 default_args = {
     "owner": "airflow",
@@ -19,20 +20,20 @@ default_args = {
     "email_on_failure": False,
     "email_on_retry": False,
     "retries": 1,
-    "retry_delay": timedelta(seconds=30),
+    "retry_delay": timedelta(seconds=10),
     "provide_context": False,
-    "catchup": False
+    "catchup": False,
+    "trigger_rule": 'all_done'
     # 'queue': 'bash_queue',
     # 'pool': 'backfill',
     # 'priority_weight': 10,
     # 'end_date': datetime(2016, 1, 1),
 }
-did_importer_prefix = 'importer_v1_'
+did_importer_prefix = 'importer_child_v1_'
 tid_prefix_check = 'check_'
 tid_prefix_spark = 'spark_submit_'
 tid_prefix_distcp = 'distcp_'
-db_names = ['zomato_ads', 'diy_db', 'zomato4', 'zbilling', 'ztransactions',
-            'chat', 'o2_internal', 'zpush']
+db_names = ['db_1', 'db_2', 'db_3']
 
 
 # helper methods
@@ -48,23 +49,27 @@ def mimic_task(task_name, success_percent=100, sleep_duration=0):
 
 # callable methods
 def check_sync_enabled(db_name, **kwargs):
-    return mimic_task('check_sync_enabled for %s' % db_name, 100, 1)
+    if mimic_task('check_sync_enabled for %s' % db_name, 70, 2) == False:
+        raise Exception('Exception in check_sync_enabled for %s' % db_name)
+    else:
+        return True
 
 def spark_submit(db_name, **kwargs):
-    return mimic_task('spark_submit for %s' % db_name, 70, 5)
+    if mimic_task('spark_submit for %s' % db_name, 60, 2) == False:
+        raise Exception('Exception in spark_submit for %s' % db_name)
+    else:
+        return True
 
 def distcp(db_name, **kwargs):
-    if mimic_task('distcp for %s' % db_name, 60, 2) == False:
+    if mimic_task('distcp for %s' % db_name, 50, 2) == False:
         raise Exception('Exception in dictcp for %s' % db_name)
 
 
 # db_importer dags
 def create_dag(did_prefix, db_name):
     did_importer = did_prefix + db_name
-    default_args_copy = default_args.copy()
-    default_args_copy['trigger_rule'] = 'all_done'
     dag = DAG(dag_id=did_importer,
-              default_args=default_args_copy,
+              default_args=default_args,
               schedule_interval=None)
     op_args=[db_name]
 
@@ -86,6 +91,4 @@ def create_dag(did_prefix, db_name):
     sc_op_check >> sc_op_spark >> py_op_disctp
     return dag
 
-if __name__ == '__main__':
-    for db_name in db_names:
-        create_dag(did_importer_prefix, db_name)
+dag = create_dag(did_importer_prefix, 'db_1')
