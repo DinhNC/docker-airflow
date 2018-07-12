@@ -19,7 +19,7 @@ default_args = {
     "email_on_failure": False,
     "email_on_retry": False,
     "retries": 1,
-    "retry_delay": timedelta(seconds=30),
+    "retry_delay": timedelta(seconds=10),
     "provide_context": False,
     "catchup": False
     # 'queue': 'bash_queue',
