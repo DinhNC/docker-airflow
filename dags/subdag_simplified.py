@@ -25,12 +25,12 @@ default_args = {
     "catchup": False
 }
 
-dag_id_parent = 'parent2_dag_v1'
-dag_id_child_prefix = 'child2_dag_'
+dag_id_parent = 'simplified_parent_dag_v1'
+dag_id_child_prefix = 'child_dag_'
 
-tid_prefix_check = 'check2_'
-tid_prefix_spark = 'spark2_submit_'
-tid_prefix_subdag = 'subdag2_'
+tid_prefix_check = 'check_'
+tid_prefix_spark = 'spark_submit_'
+tid_prefix_subdag = 'subdag_'
 
 db_names = ['db_1', 'db_2', 'db_3']
 
@@ -48,10 +48,12 @@ def mimic_task(task_name, success_percent=100, sleep_duration=0):
 
 # callable methods
 def check_sync_enabled(db_name, **kwargs):
-    return mimic_task('check_sync_enabled for %s' % db_name, 100, 1)
+    if mimic_task('check_sync_enabled for %s' % db_name, 70, 1) == False:
+      raise Exception('Exception in check_sync_enabled for %s' % db_name)
 
 def spark_submit(db_name, **kwargs):
-    return mimic_task('spark_submit for %s' % db_name, 70, 5)
+    if mimic_task('spark_submit for %s' % db_name, 60, 5) == False:
+      raise Exception('Exception in spark_submit for %s' % db_name)
 
 
 # subdag creation
@@ -63,7 +65,7 @@ def create_subdag(dag_parent, dag_id_child_prefix, db_name):
     # dag
     dag = DAG(dag_id=dag_id_child,
               default_args=default_args_copy,
-              schedule_interval='@once')
+              schedule_interval=None)
 
     # operators
     tid_check = tid_prefix_check + db_name

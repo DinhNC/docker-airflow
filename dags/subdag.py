@@ -72,7 +72,7 @@ def create_subdag(dag_parent, dag_id_child_prefix, db_name):
     default_args_copy['trigger_rule'] = 'all_done'
     dag = DAG(dag_id=dag_id_child,
               default_args=default_args_copy,
-              schedule_interval='@once')
+              schedule_interval=None)
     op_args=[db_name]
 
     tid_check = tid_prefix_check + db_name
