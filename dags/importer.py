@@ -91,4 +91,6 @@ def create_dag(did_prefix, db_name):
     sc_op_check >> sc_op_spark >> py_op_disctp
     return dag
 
-dag = create_dag(did_importer_prefix, 'db_1')
+for db_name in db_names:
+    dag_id = did_importer_prefix + db_name
+    globals()[dag_id] = create_dag(did_importer_prefix, db_name)
