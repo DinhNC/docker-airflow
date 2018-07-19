@@ -22,8 +22,7 @@ default_args = {
     "retries": 1,
     "retry_delay": timedelta(seconds=10),
     "provide_context": False,
-    "catchup": False,
-    "trigger_rule": 'all_done'
+    "catchup": False
     # 'queue': 'bash_queue',
     # 'pool': 'backfill',
     # 'priority_weight': 10,
@@ -55,13 +54,13 @@ def check_sync_enabled(db_name, **kwargs):
         return True
 
 def spark_submit(db_name, **kwargs):
-    if mimic_task('spark_submit for %s' % db_name, 60, 2) == False:
+    if mimic_task('spark_submit for %s' % db_name, 60, 10) == False:
         raise Exception('Exception in spark_submit for %s' % db_name)
     else:
         return True
 
 def distcp(db_name, **kwargs):
-    if mimic_task('distcp for %s' % db_name, 50, 2) == False:
+    if mimic_task('distcp for %s' % db_name, 50, 5) == False:
         raise Exception('Exception in dictcp for %s' % db_name)
 
 
