@@ -30,6 +30,9 @@ class CustomTaskSensor(ExternalTaskSensor):
             ).count()
             session.commit()
 
-            return count_all > 0 and count_all == count_filtered
+            if (count_all > 0):
+                return count_all == count_filtered
+            else:
+                return True
         else:
             return super(CustomTaskSensor, self).poke(context)
