@@ -47,11 +47,11 @@ def mimic_task(task_name, success_percent=100, sleep_duration=0):
 
 
 # callable methods
-def check_sync_enabled(db_name, **kwargs):
-    if mimic_task('check_sync_enabled for %s' % db_name, 70, 2) == False:
+def check_sync_enabled(db_name, exception_percent=0, **kwargs):
+    if (random.randint(1, 101) <= exception_percent):
         raise Exception('Exception in check_sync_enabled for %s' % db_name)
     else:
-        return True
+        return mimic_task('check_sync_enabled for %s' % db_name, 70, 2)
 
 def spark_submit(db_name, **kwargs):
     if mimic_task('spark_submit for %s' % db_name, 60, 10) == False:
@@ -73,9 +73,11 @@ def create_dag(did_prefix, db_name):
     op_args=[db_name]
 
     tid_check = tid_prefix_check + db_name
+    op_args_copy = list(op_args)
+    op_args_copy.append(30)
     sc_op_check = ShortCircuitOperator(task_id=tid_check, dag=dag,
                                        python_callable=check_sync_enabled,
-                                       op_args=op_args)
+                                       op_args=op_args_copy)
 
     tid_spark = tid_prefix_spark + db_name
     sc_op_spark = ShortCircuitOperator(task_id=tid_spark, dag=dag,
