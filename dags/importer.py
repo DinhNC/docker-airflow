@@ -20,7 +20,7 @@ default_args = {
     "email_on_failure": False,
     "email_on_retry": False,
     "retries": 1,
-    "retry_delay": timedelta(seconds=10),
+    "retry_delay": timedelta(seconds=20),
     "provide_context": False,
     "catchup": False
     # 'queue': 'bash_queue',
@@ -51,16 +51,16 @@ def check_sync_enabled(db_name, exception_percent=0, **kwargs):
     if (random.randint(1, 101) <= exception_percent):
         raise Exception('Exception in check_sync_enabled for %s' % db_name)
     else:
-        return mimic_task('check_sync_enabled for %s' % db_name, 80, 2)
+        return mimic_task('check_sync_enabled for %s' % db_name, 80, 5)
 
 def spark_submit(db_name, **kwargs):
-    if mimic_task('spark_submit for %s' % db_name, 80, 10) == False:
+    if mimic_task('spark_submit for %s' % db_name, 80, 20) == False:
         raise Exception('Exception in spark_submit for %s' % db_name)
     else:
         return True
 
 def distcp(db_name, **kwargs):
-    if mimic_task('distcp for %s' % db_name, 80, 5) == False:
+    if mimic_task('distcp for %s' % db_name, 80, 10) == False:
         raise Exception('Exception in dictcp for %s' % db_name)
 
 

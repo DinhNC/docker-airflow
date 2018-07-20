@@ -45,7 +45,7 @@ def create_task_sensor_operator(dag, external_dag_id, external_task_id, sensor_i
                                       external_task_id=external_task_id,
                                       allowed_states=[State.SUCCESS, State.SHUTDOWN, State.FAILED, State.UPSTREAM_FAILED, State.SKIPPED],
                                       execution_delta=timedelta(minutes=2),
-                                      retries=0,
+                                      retries=3,
                                       poke_interval=5,
                                       dag=dag)
     return task_sensor_op
