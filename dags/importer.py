@@ -80,7 +80,7 @@ def create_dag(did_prefix, db_name):
                                        op_args=op_args_copy)
 
     tid_spark = tid_prefix_spark + db_name
-    sc_op_spark = ShortCircuitOperator(task_id=tid_spark, dag=dag,
+    sc_op_spark = PythonOperator(task_id=tid_spark, dag=dag,
                                        python_callable=spark_submit,
                                        op_args=op_args)
 
