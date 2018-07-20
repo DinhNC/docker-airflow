@@ -51,16 +51,16 @@ def check_sync_enabled(db_name, exception_percent=0, **kwargs):
     if (random.randint(1, 101) <= exception_percent):
         raise Exception('Exception in check_sync_enabled for %s' % db_name)
     else:
-        return mimic_task('check_sync_enabled for %s' % db_name, 70, 2)
+        return mimic_task('check_sync_enabled for %s' % db_name, 80, 2)
 
 def spark_submit(db_name, **kwargs):
-    if mimic_task('spark_submit for %s' % db_name, 60, 10) == False:
+    if mimic_task('spark_submit for %s' % db_name, 80, 10) == False:
         raise Exception('Exception in spark_submit for %s' % db_name)
     else:
         return True
 
 def distcp(db_name, **kwargs):
-    if mimic_task('distcp for %s' % db_name, 50, 5) == False:
+    if mimic_task('distcp for %s' % db_name, 80, 5) == False:
         raise Exception('Exception in dictcp for %s' % db_name)
 
 
