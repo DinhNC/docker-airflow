@@ -61,6 +61,7 @@ services:
             - webserver
         volumes:
             - ./dags/zanalytics-airflow:/usr/local/airflow/dags
+            - ./requirements.txt:/requirements.txt
             # Uncomment to include custom plugins
             # - ./plugins:/usr/local/airflow/plugins
         environment:
@@ -80,6 +81,7 @@ services:
             - scheduler
         volumes:
             - ./dags/zanalytics-airflow:/usr/local/airflow/dags
+            - ./requirements.txt:/requirements.txt
             # Uncomment to include custom plugins
             # - ./plugins:/usr/local/airflow/plugins
         environment:
