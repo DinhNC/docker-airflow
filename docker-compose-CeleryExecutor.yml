@@ -31,6 +31,7 @@ services:
             # - REDIS_PASSWORD=redispass
         volumes:
             - ./dags/zanalytics-airflow:/usr/local/airflow/dags
+            - ./requirements.txt:/requirements.txt
             # Uncomment to include custom plugins
             # - ./plugins:/usr/local/airflow/plugins
         ports:
