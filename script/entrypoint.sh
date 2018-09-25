@@ -12,6 +12,13 @@ TRY_LOOP="20"
 : "${POSTGRES_PASSWORD:="airflow"}"
 : "${POSTGRES_DB:="airflow"}"
 
+: "${MYSQL_HOST:="mysql"}"
+: "${MYSQL_ROOT_PASSWORD:="root"}"
+: "${MYSQL_PORT:="3306"}"
+: "${MYSQL_USER:="airflow"}"
+: "${MYSQL_PASSWORD:="airflow"}"
+: "${MYSQL_DATABASE:="zanalytics"}"
+
 # Defaults and back-compat
 : "${AIRFLOW__CORE__FERNET_KEY:=${FERNET_KEY:=$(python -c "from cryptography.fernet import Fernet; FERNET_KEY = Fernet.generate_key().decode(); print(FERNET_KEY)")}}"
 : "${AIRFLOW__CORE__EXECUTOR:=${EXECUTOR:-Sequential}Executor}"
