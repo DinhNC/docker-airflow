@@ -1,5 +1,2 @@
 boto3===1.8.4
 paramiko===2.4.1
-#password===0.2
-#flask_bcrypt===0.7.1
-
