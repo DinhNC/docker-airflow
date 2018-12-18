@@ -32,7 +32,7 @@ services:
         volumes:
             - ./dags/zanalytics-airflow:/usr/local/airflow/dags
             - ./requirements.txt:/requirements.txt
-            - /home/hadoop/.ssh:/usr/local/airflow/.ssh
+            - ./ssh:/usr/local/airflow/ssh
             # Uncomment to include custom plugins
             # - ./plugins:/usr/local/airflow/plugins
         ports:
@@ -64,7 +64,7 @@ services:
         volumes:
             - ./dags/zanalytics-airflow:/usr/local/airflow/dags
             - ./requirements.txt:/requirements.txt
-            - /home/hadoop/.ssh:/usr/local/airflow/.ssh
+            - ./ssh:/usr/local/airflow/ssh
             # Uncomment to include custom plugins
             # - ./plugins:/usr/local/airflow/plugins
         environment:
@@ -85,7 +85,7 @@ services:
         volumes:
             - ./dags/zanalytics-airflow:/usr/local/airflow/dags
             - ./requirements.txt:/requirements.txt
-            - /home/hadoop/.ssh:/usr/local/airflow/.ssh
+            - ./ssh:/usr/local/airflow/ssh
             # Uncomment to include custom plugins
             # - ./plugins:/usr/local/airflow/plugins
         environment:
