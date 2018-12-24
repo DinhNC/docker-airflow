@@ -33,3 +33,6 @@ dags
 
 # db-mount
 pgdata
+
+# IntelliJ IDEA
+.idea/*
