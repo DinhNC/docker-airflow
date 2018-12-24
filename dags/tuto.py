@@ -5,6 +5,7 @@ http://airflow.readthedocs.org/en/latest/tutorial.html
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
 from datetime import datetime, timedelta
+from my_package_1 import my_module_1
 import os
 import sys
 
