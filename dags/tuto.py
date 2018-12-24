@@ -5,7 +5,11 @@ http://airflow.readthedocs.org/en/latest/tutorial.html
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
 from datetime import datetime, timedelta
+import os
+import sys
 
+#print(f"PYTHONPATH = {os.environ['PYTHONPATH'].split(os.pathsep)}")
+print("sys.path:-\n{}", *(sys.path), sep="\n")
 
 default_args = {
     "owner": "airflow",
