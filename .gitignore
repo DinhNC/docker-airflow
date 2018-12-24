@@ -29,7 +29,7 @@ __pycache__
 .DS_Store
 
 # ZAnalytics
-dags
+# dags
 
 # db-mount
 pgdata
