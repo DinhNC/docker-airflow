@@ -1,2 +1,7 @@
 boto3
 paramiko
+# https://github.com/dropbox/PyHive/issues/161#issuecomment-341705077
+PyHive
+sasl
+thrift
+thrift-sasl

@@ -48,6 +48,8 @@ RUN set -ex \
         netcat \
         locales \
         openssh-server \
+        libsasl2-modules \
+        libsasl2-dev \
     && sed -i 's/^# en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/g' /etc/locale.gen \
     && locale-gen \
     && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
@@ -73,6 +75,9 @@ RUN set -ex \
 
 COPY script/entrypoint.sh /entrypoint.sh
 COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
+
+ADD requirements.txt .
+RUN pip install -r requirements.txt
 
 RUN chown -R airflow: ${AIRFLOW_HOME}
 
