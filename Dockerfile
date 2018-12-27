@@ -48,7 +48,9 @@ RUN set -ex \
         netcat \
         locales \
         openssh-server \
+        libsasl2-2 \
         libsasl2-modules \
+        libsasl2-modules-gssapi-mit \
         libsasl2-dev \
     && sed -i 's/^# en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/g' /etc/locale.gen \
     && locale-gen \
