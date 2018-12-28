@@ -15,7 +15,7 @@ ENV TERM linux
 ARG AIRFLOW_VERSION=1.10.1
 ARG AIRFLOW_HOME=/usr/local/airflow
 ARG AIRFLOW_DEPS=""
-ARG PYTHON_DEPS=""
+ARG PYTHON_DEPS="boto3 paramiko thrift sasl thrift_sasl hive-thrift-py pyhive hmsclient"
 ENV AIRFLOW_GPL_UNIDECODE yes
 
 # Define en_US.
