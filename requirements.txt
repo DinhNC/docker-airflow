@@ -4,4 +4,5 @@ paramiko
 thrift
 sasl
 thrift_sasl
+hive-thrift-py
 pyhive
