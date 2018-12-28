@@ -6,3 +6,4 @@ sasl
 thrift_sasl
 hive-thrift-py
 pyhive
+hmsclient
