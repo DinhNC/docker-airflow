@@ -48,6 +48,7 @@ RUN set -ex \
         netcat \
         locales \
         openssh-server \
+        gcc \
         libsasl2-2 \
         libsasl2-modules \
         libsasl2-modules-gssapi-mit \
