@@ -14,8 +14,8 @@ ENV TERM linux
 # Airflow
 ARG AIRFLOW_VERSION=1.10.1
 ARG AIRFLOW_HOME=/usr/local/airflow
-ARG AIRFLOW_DEPS=""
-ARG PYTHON_DEPS=""
+ARG AIRFLOW_DEPS=" devel_hadoop druid hdfs password s3 redis "
+ARG PYTHON_DEPS=" thrift sasl thrift_sasl hive-thrift-py pyhive paramiko boto3 "
 ENV AIRFLOW_GPL_UNIDECODE yes
 
 # Define en_US.
@@ -34,6 +34,9 @@ RUN set -ex \
         libffi-dev \
         libpq-dev \
         git \
+        openssh-server \
+        gcc \
+        cyrus-sasl-devel \
     ' \
     && apt-get update -yqq \
     && apt-get upgrade -yqq \
@@ -47,7 +50,6 @@ RUN set -ex \
         rsync \
         netcat \
         locales \
-        openssh-server \
     && sed -i 's/^# en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/g' /etc/locale.gen \
     && locale-gen \
     && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
