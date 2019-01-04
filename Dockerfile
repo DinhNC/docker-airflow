@@ -14,8 +14,8 @@ ENV TERM linux
 # Airflow
 ARG AIRFLOW_VERSION=1.10.1
 ARG AIRFLOW_HOME=/usr/local/airflow
-ARG AIRFLOW_DEPS=" devel_hadoop druid hdfs password s3 redis "
-ARG PYTHON_DEPS=" thrift sasl thrift_sasl hive-thrift-py pyhive paramiko boto3 "
+ARG AIRFLOW_DEPS=""
+ARG PYTHON_DEPS=""
 ENV AIRFLOW_GPL_UNIDECODE yes
 
 # Define en_US.
@@ -34,9 +34,6 @@ RUN set -ex \
         libffi-dev \
         libpq-dev \
         git \
-        openssh-server \
-        gcc \
-        cyrus-sasl-devel \
     ' \
     && apt-get update -yqq \
     && apt-get upgrade -yqq \
@@ -50,6 +47,9 @@ RUN set -ex \
         rsync \
         netcat \
         locales \
+        openssh-server \
+        gcc \
+        cyrus-sasl-devel \
     && sed -i 's/^# en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/g' /etc/locale.gen \
     && locale-gen \
     && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
@@ -59,7 +59,8 @@ RUN set -ex \
     && pip install pyOpenSSL \
     && pip install ndg-httpsclient \
     && pip install pyasn1 \
-    && pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh${AIRFLOW_DEPS:+,}${AIRFLOW_DEPS}]==${AIRFLOW_VERSION} \
+    && pip install thrift sasl thrift_sasl hive-thrift-py pyhive paramiko boto3 \
+    && pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh,devel_hadoop,druid,hdfs,password,s3,redis${AIRFLOW_DEPS:+,}${AIRFLOW_DEPS}]==${AIRFLOW_VERSION} \
     && pip install 'redis>=2.10.5,<3' \
     && if [ -n "${PYTHON_DEPS}" ]; then pip install ${PYTHON_DEPS}; fi \
     && apt-get purge --auto-remove -yqq $buildDeps \
